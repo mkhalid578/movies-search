@@ -1,5 +1,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
+#include <QJsonObject>
+#include <QList>
 
 #include "moviesmanager.h"
 
@@ -21,12 +23,27 @@ void MoviesManager::getMovies(QString title)
 
     QNetworkReply* reply = manager->get(*request);
 
-    QObject::connect(reply, &QNetworkReply::finished,[reply]() {
+
+
+    QObject::connect(reply, &QNetworkReply::finished,[reply, this]() {
         QByteArray responseBytes = reply->readAll();
         QJsonDocument json = QJsonDocument::fromJson(responseBytes);
+        QList<MoviesListModel::MovieInfo> totalMovies;
         if (!responseBytes.isNull()) {
-            qDebug() << json;
+            QJsonArray listofMovies = json["Search"].toArray();
 
+            for (auto movie: listofMovies) {
+                QJsonObject movieObj = movie.toObject();
+                MoviesListModel::MovieInfo movieInfo;
+                movieInfo.title = movieObj["Title"].toString();
+                movieInfo.poster = movieObj["Poster"].toString();
+                movieInfo.type = movieObj["Type"].toString();
+                movieInfo.year = movieObj["Year"].toString();
+
+                totalMovies.append(movieInfo);
+            }
+
+            movies->setMovies(totalMovies);
         }
         else {
             qDebug() << "failed to make request";
