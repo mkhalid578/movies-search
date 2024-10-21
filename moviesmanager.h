@@ -31,6 +31,8 @@ public:
     }
 
     Q_INVOKABLE void getMovies(QString title);
+    Q_INVOKABLE void setMovieInfo(QString id, int row);
+
 
 
     static MoviesManager &instance()
@@ -40,6 +42,8 @@ public:
     }
 
 
+signals:
+    void plotRecieved(QString plot, QString actors, QString runtime, QString director);
 
 private:
 

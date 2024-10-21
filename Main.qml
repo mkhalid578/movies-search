@@ -7,33 +7,67 @@ import films
 Window {
     id: root
     width: 960
-    height: 480
+    height: 640
     visible: true
     title: qsTr("Qt Movies")
     color: "black"
 
+    property string filter: ""
+
+    Connections {
+        target: MoviesManager
+        function onPlotRecieved(plot: string, actors: string, runtime: string, director: string) {
+            info.description = plot;
+            info.actors = actors
+            info.totalRunTime = runtime
+            info.director = director
+            info.open()
+        }
+    }
+
     ColumnLayout {
         anchors.fill: parent
 
-        TextField {
-            id: search
-            Layout.preferredHeight: 100
-            Layout.preferredWidth: 800
-            Layout.alignment: Qt.AlignHCenter
-            Layout.margins: 10
-            font.pixelSize: 80
-            placeholderText: qsTr("Search movie...")
+        InfoModal {
+            id: info
+            anchors.centerIn: parent
+        }
 
-            Keys.onReturnPressed: MoviesManager.getMovies(text)
+        RowLayout {
+            spacing: 5
+            Layout.preferredHeight: 50
+            Layout.alignment: Qt.AlignHCenter
+
+            TextField {
+                id: search
+
+                Layout.margins: 10
+                Layout.preferredWidth: 360
+                Layout.preferredHeight: 45
+                font.pixelSize: 30
+                placeholderText: qsTr("Search movie...")
+
+                Keys.onReturnPressed: MoviesManager.getMovies(text)
+
+            }
+
+            Button {
+                Layout.preferredWidth: 100
+                Layout.preferredHeight: 45
+            }
+
+            Button {
+                Layout.preferredWidth: 100
+                Layout.preferredHeight: 45
+            }
 
         }
 
         GridView {
             id: grid
-            Layout.preferredWidth: 800
-            Layout.preferredHeight: 400
             Layout.fillWidth: true
-            Layout.margins: 10
+            Layout.preferredHeight: 400
+            Layout.margins: 5
             model: MoviesManager.movies
             cellWidth: 310
             cellHeight: 350
@@ -44,6 +78,8 @@ Window {
             }
 
             delegate: Rectangle {
+
+                property int movieIndex : index
 
                 width: grid.cellWidth - 10
                 height: grid.cellHeight - 10
@@ -77,6 +113,32 @@ Window {
                         Layout.preferredHeight: implicitHeight / 2
                         Layout.preferredWidth:  implicitWidth / 2
 
+                    }
+
+                    RowLayout {
+                        Layout.alignment: Qt.AlignHCenter
+                        Button {
+                            icon.source: "info.svg"
+                            icon.height: 20
+                            icon.width: 20
+                            onClicked: {
+                                MoviesManager.setMovieInfo(model.id, movieIndex)
+                                info.title = model.title
+                                info.poster = model.poster
+                            }
+
+                            ToolTip.visible: hovered
+                            ToolTip.text: qsTr("More info")
+                        }
+
+                        Button {
+                            icon.source: "add.svg"
+                            icon.height: 20
+                            icon.width: 20
+
+                            ToolTip.visible: hovered
+                            ToolTip.text: qsTr("Add to Favorites")
+                        }
                     }
 
                     Text {

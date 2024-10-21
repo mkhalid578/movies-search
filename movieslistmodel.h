@@ -18,14 +18,18 @@ public:
         YearRole,
         TypeRole,
         PosterRole,
+        DescriptionRole,
+        IdRole
     };
     Q_ENUM(MovieRoles)
 
     struct MovieInfo {
+        QString id;
         QString title;
         QString year;
         QString type;
         QString poster;
+        QString description;
     };
 
     explicit MoviesListModel(QObject *parent = nullptr);
@@ -34,9 +38,12 @@ public:
 
     QVariant data(const QModelIndex &index, int role = MovieRoles::MovieRole) const override;
 
+    bool setData(const QModelIndex& index, const QVariant& value, int role = MovieRoles::MovieRole) override;
+
     QHash<int, QByteArray> roleNames() const override;
 
     void setMovies(const QList<MovieInfo> &movieList);
+    void setMovieInfo(QString description, int row);
 
     QList<MovieInfo> getMovies();
 
