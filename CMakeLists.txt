@@ -19,15 +19,16 @@ qt_add_qml_module(appmovies
         InfoModal.qml
         Main.qml
     SOURCES
-        movieslistmodel.h
-        movieslistmodel.cpp
-        moviesmanager.h
-        moviesmanager.cpp
+        src/movieslistmodel.h
+        src/movieslistmodel.cpp
+        src/moviesmanager.h
+        src/moviesmanager.cpp
+        src/moviesfilter.h
+        src/moviesfilter.cpp
     RESOURCES
-        info.svg
-        add.svg
-        close.svg
-        SOURCES moviesfilter.h moviesfilter.cpp
+        assets/info.svg
+        assets/add.svg
+        assets/close.svg
 )
 
 

@@ -34,7 +34,7 @@ Popup {
             anchors.right: parent.right
             anchors.topMargin: 5
             anchors.rightMargin: 5
-            icon.source: "close.svg"
+            icon.source: "assets/close.svg"
             icon.color: "#DBEB00"
             background: Item {}
             onClicked: popup.close()

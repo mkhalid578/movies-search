@@ -142,7 +142,7 @@ Window {
                     RowLayout {
                         Layout.alignment: Qt.AlignHCenter
                         Button {
-                            icon.source: "info.svg"
+                            icon.source: "assets/info.svg"
                             icon.height: 20
                             icon.width: 20
                             onClicked: {
@@ -156,7 +156,7 @@ Window {
                         }
 
                         Button {
-                            icon.source: "add.svg"
+                            icon.source: "assets/add.svg"
                             icon.height: 20
                             icon.width: 20
 

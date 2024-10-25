@@ -7,7 +7,7 @@
 
 #include <QDebug>
 
-#include "moviesmanager.h"
+#include "src/moviesmanager.h"
 
 int main(int argc, char *argv[])
 {
