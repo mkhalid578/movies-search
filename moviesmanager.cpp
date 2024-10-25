@@ -9,8 +9,11 @@ MoviesManager::MoviesManager(QObject *parent)
     : QObject(parent)
 {
     movies = new MoviesListModel(this);
+    moviesFilter = new MoviesFilter(this);
     manager = new QNetworkAccessManager(this);
     request = new QNetworkRequest();
+
+    moviesFilter->setSourceModel(movies);
 
 }
 

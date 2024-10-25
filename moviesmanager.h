@@ -8,6 +8,7 @@
 #include <QQmlEngine>
 
 #include "movieslistmodel.h"
+#include "moviesfilter.h"
 
 
 class MoviesManager : public QObject
@@ -16,7 +17,7 @@ class MoviesManager : public QObject
     QML_ELEMENT
     QML_SINGLETON
 
-    Q_PROPERTY(MoviesListModel* movies MEMBER movies CONSTANT)
+    Q_PROPERTY(MoviesFilter* moviesFilter MEMBER moviesFilter CONSTANT)
 
 public:
 
@@ -52,6 +53,7 @@ private:
     QNetworkAccessManager* manager{nullptr};
     QNetworkRequest* request {nullptr};
     MoviesListModel *movies;
+    MoviesFilter *moviesFilter;
 
 };
 

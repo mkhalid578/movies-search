@@ -39,28 +39,44 @@ Window {
             Layout.alignment: Qt.AlignHCenter
 
             TextField {
-                id: search
+                id: find
 
                 Layout.margins: 10
                 Layout.preferredWidth: 360
                 Layout.preferredHeight: 45
                 font.pixelSize: 30
-                placeholderText: qsTr("Search movie...")
+                placeholderText: qsTr("Find movies...")
 
                 Keys.onReturnPressed: MoviesManager.getMovies(text)
 
             }
+        }
 
-            Button {
-                Layout.preferredWidth: 100
+        RowLayout {
+            Layout.fillWidth: true
+            Layout.margins: 4
+            Layout.alignment: Qt.AlignHCenter
+
+            ComboBox {
+                model: ["year", "title"]
+                displayText: currentText.toUpperCase()
+                onActivated: MoviesManager.moviesFilter.filterBy(currentValue);
+                Layout.preferredWidth: 240
                 Layout.preferredHeight: 45
             }
 
-            Button {
-                Layout.preferredWidth: 100
-                Layout.preferredHeight: 45
-            }
+            TextField {
+                id: filter
 
+                Layout.margins: 10
+                Layout.preferredWidth: 360
+                Layout.preferredHeight: 45
+                font.pixelSize: 30
+                placeholderText: qsTr("Filter by...")
+
+                onTextChanged: MoviesManager.moviesFilter.setFilterFixedString(text)
+
+            }
         }
 
         GridView {
@@ -68,13 +84,21 @@ Window {
             Layout.fillWidth: true
             Layout.preferredHeight: 400
             Layout.margins: 5
-            model: MoviesManager.movies
+            model: MoviesManager.moviesFilter
             cellWidth: 310
             cellHeight: 350
             clip: true
 
             add: Transition {
-                NumberAnimation { properties: "x,y"; from: 100; duration: 1000 }
+                NumberAnimation { properties: "opacity"; from: 0; to: 1.0; duration: 500 }
+            }
+
+            populate: Transition {
+                NumberAnimation { property: "opacity"; from: 0; to: 1; duration: 1000 }
+            }
+
+            remove: Transition {
+                NumberAnimation { property: "opacity"; to: 0; duration: 500 }
             }
 
             delegate: Rectangle {

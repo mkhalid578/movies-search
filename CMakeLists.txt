@@ -27,6 +27,7 @@ qt_add_qml_module(appmovies
         info.svg
         add.svg
         close.svg
+        SOURCES moviesfilter.h moviesfilter.cpp
 )
 
 
