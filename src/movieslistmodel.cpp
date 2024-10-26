@@ -106,6 +106,24 @@ void MoviesListModel::setMovies(const QList<MovieInfo> &movieList)
     endResetModel();
 }
 
+void MoviesListModel::addMovie(const QString& title, const QString& year, const QString& poster) {
+
+    MovieInfo info;
+    info.title = title;
+    info.year = year;
+    info.poster = poster;
+
+    //check if movie already exists
+
+    beginInsertRows(QModelIndex(), rowCount(),rowCount());
+    allMovies.append(info);
+    endInsertRows();
+
+
+
+
+}
+
 void MoviesListModel::setMovieInfo(QString description, int row)
 {
     MovieInfo info = allMovies.at(row);

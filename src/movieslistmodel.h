@@ -34,6 +34,8 @@ public:
 
     explicit MoviesListModel(QObject *parent = nullptr);
 
+    Q_INVOKABLE void addMovie(const QString& title, const QString& year, const QString& poster);
+
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
 
     QVariant data(const QModelIndex &index, int role = MovieRoles::MovieRole) const override;

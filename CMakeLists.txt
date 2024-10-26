@@ -12,12 +12,19 @@ qt_add_executable(appmovies
     main.cpp
 )
 
+include_directories(
+    src/
+)
+
 qt_add_qml_module(appmovies
     URI films
     VERSION 1.0
     QML_FILES
+        MoviesPage.qml
         InfoModal.qml
         Main.qml
+        SearchPage.qml
+        Favorites.qml
     SOURCES
         src/movieslistmodel.h
         src/movieslistmodel.cpp
@@ -29,6 +36,9 @@ qt_add_qml_module(appmovies
         assets/info.svg
         assets/add.svg
         assets/close.svg
+        RESOURCES assets/filter.svg
+        RESOURCES assets/search.svg
+        RESOURCES assets/back.svg
 )
 
 

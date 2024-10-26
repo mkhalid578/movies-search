@@ -18,6 +18,7 @@ class MoviesManager : public QObject
     QML_SINGLETON
 
     Q_PROPERTY(MoviesFilter* moviesFilter MEMBER moviesFilter CONSTANT)
+    Q_PROPERTY(MoviesListModel* favorites MEMBER favorites CONSTANT)
 
 public:
 
@@ -53,6 +54,7 @@ private:
     QNetworkAccessManager* manager{nullptr};
     QNetworkRequest* request {nullptr};
     MoviesListModel *movies;
+    MoviesListModel* favorites;
     MoviesFilter *moviesFilter;
 
 };

@@ -10,6 +10,8 @@ MoviesManager::MoviesManager(QObject *parent)
 {
     movies = new MoviesListModel(this);
     moviesFilter = new MoviesFilter(this);
+
+    favorites = new MoviesListModel(this);
     manager = new QNetworkAccessManager(this);
     request = new QNetworkRequest();
 
