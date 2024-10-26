@@ -35,8 +35,8 @@ GridView {
 
         property int movieIndex : index
 
-        width: grid.cellWidth - 8
-        height: grid.cellHeight - 10
+        width: cellWidth - 8
+        height: cellHeight - 10
         border.color: "#2CDE85"
         radius: 4
         border.width: 2

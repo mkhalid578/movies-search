@@ -25,7 +25,7 @@ GridView {
     }
 
     populate: Transition {
-        NumberAnimation { property: "opacity"; from: 0; to: 1; duration: 350 }
+        NumberAnimation { property: "opacity"; from: 0; to: 1; duration: 1000 }
     }
 
     remove: Transition {

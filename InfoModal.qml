@@ -45,7 +45,7 @@ Popup {
 
             Text {
                 id: mainTitle
-                text: title
+                text: popup.title
                 font.pixelSize: 30
                 color: "#DBEB00"
                 Layout.preferredWidth: 400
