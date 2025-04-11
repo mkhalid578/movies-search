@@ -17,13 +17,18 @@ MoviesManager::MoviesManager(QObject *parent)
 
     moviesFilter->setSourceModel(movies);
 
+    connect(favorites, &MoviesListModel::titleExists,
+            this, &MoviesManager::movieExistsAlready);
+
 }
 
 void MoviesManager::getMovies(QString title)
 {
 
-    request->setUrl(QUrl(QString("https://www.omdbapi.com/?apiKey=%1&s=%2").arg("7a077fb8", title)));
-    request->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request->setUrl(QUrl(
+        QString("https://www.omdbapi.com/?apiKey=%1&s=%2").arg("7a077fb8", title)));
+    request->setHeader(QNetworkRequest::ContentTypeHeader,
+                       "application/json");
 
 
     QNetworkReply* reply = manager->get(*request);
@@ -62,8 +67,11 @@ void MoviesManager::getMovies(QString title)
 
 void MoviesManager::setMovieInfo(QString id, int row)
 {
-    request->setUrl(QUrl(QString("https://www.omdbapi.com/?apiKey=%1&i=%2").arg("7a077fb8", id)));
-    request->setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
+    request->setUrl(QUrl(
+        QString("https://www.omdbapi.com/?apiKey=%1&i=%2").arg(
+            "7a077fb8", id)));
+    request->setHeader(QNetworkRequest::ContentTypeHeader,
+                       "application/json");
 
 
     QNetworkReply* reply = manager->get(*request);

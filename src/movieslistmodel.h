@@ -30,6 +30,10 @@ public:
         QString type;
         QString poster;
         QString description;
+
+        bool operator==(const MovieInfo& other) const {
+            return (id == other.id && title == other.title && type == other.type);
+        }
     };
 
     explicit MoviesListModel(QObject *parent = nullptr);
@@ -49,11 +53,16 @@ public:
 
     QList<MovieInfo> getMovies();
 
+
+
 private:
 
     QHash<int, QByteArray> roleNamesHash;
-
     QList<MovieInfo> allMovies;
+
+signals:
+    void titleExists();
+
 
 };
 

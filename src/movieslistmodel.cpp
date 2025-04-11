@@ -114,14 +114,14 @@ void MoviesListModel::addMovie(const QString& title, const QString& year, const 
     info.poster = poster;
 
     //check if movie already exists
+    if(allMovies.contains(info)) {
+        emit titleExists();
+    } else {
 
-    beginInsertRows(QModelIndex(), rowCount(),rowCount());
-    allMovies.append(info);
-    endInsertRows();
-
-
-
-
+        beginInsertRows(QModelIndex(), rowCount(),rowCount());
+        allMovies.append(info);
+        endInsertRows();
+    }
 }
 
 void MoviesListModel::setMovieInfo(QString description, int row)
