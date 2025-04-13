@@ -25,6 +25,7 @@ qt_add_qml_module(appmovies
         Main.qml
         SearchPage.qml
         Favorites.qml
+        Notifications.qml
     SOURCES
         src/movieslistmodel.h
         src/movieslistmodel.cpp
@@ -36,10 +37,16 @@ qt_add_qml_module(appmovies
         assets/info.svg
         assets/add.svg
         assets/close.svg
-        RESOURCES assets/filter.svg
-        RESOURCES assets/search.svg
-        RESOURCES assets/back.svg
-        QML_FILES Notifications.qml
+        assets/filter.svg
+        assets/search.svg
+        assets/back.svg
+        assets/movie.svg
+        assets/favorites.svg
+        assets/defaultImg.png
+        RESOURCES assets/image.svg
+        QML_FILES CardButton.qml
+        RESOURCES assets/settings.svg
+        QML_FILES MovieCard.qml
 )
 
 

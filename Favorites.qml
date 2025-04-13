@@ -37,14 +37,29 @@ ColumnLayout {
 
         delegate: Rectangle {
 
+            id: card
             property int movieIndex : index
+            property bool flipped: false
 
             width: grid.cellWidth - 8
             height: grid.cellHeight - 10
-            border.color: "#2CDE85"
+            border.color: "#dcdcdc"
             radius: 4
             border.width: 2
-            color: "#00414A"
+            color: "#f4f4f4"
+
+            HoverHandler {
+                id: hoverHandler
+            }
+
+            scale: hoverHandler.hovered ? 1.07 : 1.0
+
+            Behavior on scale {
+                NumberAnimation {
+                    duration: 120; easing.type: Easing.InOutQuad
+                }
+            }
+
 
             ColumnLayout {
 
@@ -53,7 +68,7 @@ ColumnLayout {
 
                 Image {
                     id: poster
-                    source: model.poster !== "N/A" ? model.poster : ""
+                    source: model.poster !== "N/A" ? model.poster : "assets/image.svg"
                     Layout.alignment: Qt.AlignHCenter
                     Layout.preferredHeight: implicitHeight / 2
                     Layout.preferredWidth:  implicitWidth / 2
@@ -64,7 +79,7 @@ ColumnLayout {
                 Text {
                     id: title
                     text: qsTr("%1 (%2)").arg(model.title).arg(model.year);
-                    color: "white"
+                    color: "black"
                     font.pixelSize: 16
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.fillWidth: true

@@ -57,16 +57,16 @@ ListView {
         width: 200
         height: 50
         radius: 25
-        color: "grey"
+        color: "#323232"
+
         Text {
             text: name
             anchors.centerIn: parent
             color: "white"
-            width: parent.width / 1.5
-            height: parent.height / 1.5
             minimumPointSize: 10
-            font.pointSize: 60
+            font.pointSize: 14
             fontSizeMode: Text.Fit
+            elide: Text.ElideRight
         }
 
         Timer {

@@ -8,7 +8,7 @@ Popup {
     x: 100
     y: 100
     width: 600
-    height: 500
+    height: 400
     modal: true
     focus: true
 
@@ -23,103 +23,136 @@ Popup {
         descriptionField.text = description
     }
 
-    contentItem: Rectangle {
-        anchors.fill: parent
-        color: "#373F26"
+    opacity: visible ? 1: 0
+    scale: visible ? 1 : 0.9
 
+    Behavior on opacity {
+        NumberAnimation {
+            duration: 180
+            easing.type: Easing.OutCubic
+        }
+    }
 
-        Button {
-            id: close
-            anchors.top: parent.top
-            anchors.right: parent.right
-            anchors.topMargin: 5
-            anchors.rightMargin: 5
-            icon.source: "assets/close.svg"
-            icon.color: "#DBEB00"
-            background: Item {}
-            onClicked: popup.close()
+    Behavior on scale {
+        NumberAnimation {
+            duration: 180
+            easing.type: Easing.OutCubic
         }
 
-        ColumnLayout {
-            anchors.fill: parent
+    }
+
+    background: Rectangle {
+        color: "#ffffff"
+        radius: 12
+        border.color: "#e0e0e0"
+        border.width: 1
+    }
+
+    contentItem: ColumnLayout {
+
+        anchors.fill: parent
+
+        RowLayout {
+
+            Layout.fillWidth: true
 
             Text {
                 id: mainTitle
                 text: popup.title
                 font.pixelSize: 30
-                color: "#DBEB00"
-                Layout.preferredWidth: 400
+                color: "black"
+                Layout.preferredWidth: 520
                 wrapMode: Text.WordWrap
                 Layout.margins: 10
+                Layout.alignment: Qt.AlignCenter
             }
 
-            RowLayout {
-
-                Layout.preferredWidth: 450
-                Layout.alignment: Qt.AlignHCenter
-                spacing: 5
-
-                Image {
-                    source: poster !== "N/A" ? poster : ""
-                    Layout.preferredHeight: sourceSize.height * .8
-                    Layout.preferredWidth: sourceSize.width * .8
+            Button {
+                id: close
+                Layout.alignment: Qt.AlignRight
+                icon.source: "assets/close.svg"
+                icon.color: "black"
+                background: Rectangle {
+                    radius: 12
+                    color: "#dcdcdc"
                 }
 
-                ColumnLayout {
+                onClicked: popup.close()
 
-                    Layout.fillWidth: true
+                scale: down ? 0.96 : (hovered ? 1.07 : 1.0)
 
-                    Text {
-                        id: directorsField
-                        text: qsTr("<b>Directed by:</b>: %1").arg(director)
-                        font.pixelSize: 16
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 300
-                        wrapMode: Text.WordWrap
-                        color: "#DBEB00"
-                        Layout.margins: 5
+                Behavior on scale {
+                    NumberAnimation {
+                        duration: 180
+                        easing.type: Easing.OutQuad
                     }
+                }
+            }
+
+        }
 
 
-                    Text {
-                        id: actorsField
-                        text: qsTr("<b>Starring</b>: %1").arg(actors)
-                        font.pixelSize: 16
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 300
-                        wrapMode: Text.WordWrap
-                        color: "#DBEB00"
-                        Layout.margins: 5
-                    }
+        RowLayout {
 
-                    Text {
-                        id: descriptionField
-                        text: qsTr("<b>Plot</b>: %1").arg(description)
-                        font.pixelSize: 16
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 300
-                        wrapMode: Text.WordWrap
-                        color: "#DBEB00"
-                        Layout.margins: 5
-                    }
-                    Text {
-                        id: runtime
-                        text: qsTr("<b>Total Runtime</b>: %1").arg(totalRunTime)
-                        font.pixelSize: 16
-                        Layout.alignment: Qt.AlignHCenter
-                        Layout.preferredWidth: 300
-                        wrapMode: Text.WordWrap
-                        color: "#DBEB00"
-                        Layout.margins: 5
-                    }
+            Layout.preferredWidth: 450
+            Layout.alignment: Qt.AlignHCenter
+            spacing: 8
 
+            Image {
+                source: poster !== "N/A" ? poster : ""
+                Layout.preferredHeight: sourceSize.height * .6
+                Layout.preferredWidth: sourceSize.width * .6
+            }
+
+            ColumnLayout {
+
+                Layout.fillWidth: true
+
+                Text {
+                    id: directorsField
+                    text: qsTr("<b>Directed by:</b>: %1").arg(director)
+                    font.pixelSize: 16
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: 300
+                    wrapMode: Text.WordWrap
+                    color: "black"
+                    Layout.margins: 5
                 }
 
 
+                Text {
+                    id: actorsField
+                    text: qsTr("<b>Starring</b>: %1").arg(actors)
+                    font.pixelSize: 16
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: 300
+                    wrapMode: Text.WordWrap
+                    color: "black"
+                    Layout.margins: 5
+                }
+
+                Text {
+                    id: descriptionField
+                    text: qsTr("<b>Plot</b>: %1").arg(description)
+                    font.pixelSize: 16
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: 300
+                    wrapMode: Text.WordWrap
+                    color: "black"
+                    Layout.margins: 5
+                }
+                Text {
+                    id: runtime
+                    text: qsTr("<b>Total Runtime</b>: %1").arg(totalRunTime)
+                    font.pixelSize: 16
+                    Layout.alignment: Qt.AlignHCenter
+                    Layout.preferredWidth: 300
+                    wrapMode: Text.WordWrap
+                    color: "black"
+                    Layout.margins: 5
+                }
 
             }
-
-
         }
     }
 

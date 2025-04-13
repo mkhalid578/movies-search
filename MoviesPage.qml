@@ -14,33 +14,44 @@ ColumnLayout {
         Layout.margins: 10
         Layout.preferredWidth: 360
         Layout.preferredHeight: 45
-        Layout.alignment: Qt.AlignRight
+        Layout.alignment: Qt.AlignCenter
         font.pixelSize: 30
         placeholderText: qsTr("Find movies...")
         focus: true
 
-        Keys.onReturnPressed: {MoviesManager.getMovies(text);}
+        Keys.onReturnPressed: {
+            MoviesManager.getMovies(text);
+        }
+    }
+
+    InfoModal {
+        id: info
+        anchors.centerIn: parent
     }
 
 
     GridView {
         id: grid
 
-        model: MoviesManager.moviesFilter
+
         width: 960
         height: 500
         cellWidth: 320
         cellHeight: 350
+        z: 1
         clip: true
 
-        InfoModal {
-            id: info
-            anchors.centerIn: parent
-        }
+        Layout.margins: 10
 
+
+        model: MoviesManager.moviesFilter
 
         add: Transition {
-            NumberAnimation { properties: "opacity"; from: 0; to: 1.0; duration: 500 }
+            NumberAnimation {
+                properties: "opacity"
+                from: 0; to: 1.0
+                duration: 500
+            }
         }
 
         populate: Transition {
@@ -51,97 +62,37 @@ ColumnLayout {
             NumberAnimation { property: "opacity"; to: 0; duration: 500 }
         }
 
-        delegate: Rectangle {
+        delegate: MovieCard {
+            width: grid.cellWidth - 20
+            height: grid.cellHeight - 20
+            poster: model.poster
+            title: model.title
+            year: model.year
+            movieId: model.id
+            movieIndex: index
 
-            property int movieIndex : index
+            onAddPressed: {
+                MoviesManager.favorites.addMovie(
+                            model.title, model.year, model.poster)
 
-            width: grid.cellWidth - 8
-            height: grid.cellHeight - 10
-            border.color: "#2CDE85"
-            radius: 4
-            border.width: 2
-            color: "#00414A"
-            opacity: hoverHandler.hovered ? .8 : 1
-
-
-            NumberAnimation on opacity {
-                from: 0
-                to: 1
-                duration: 300
-                easing.type: Easing.OutInQuad
             }
 
-            HoverHandler {id: hoverHandler}
-
-
-            ColumnLayout {
-
-                anchors.fill: parent
-                spacing: 2
-
-                Image {
-                    id: poster
-                    source: model.poster !== "N/A" ? model.poster : ""
-                    Layout.alignment: Qt.AlignHCenter
-                    Layout.preferredHeight: implicitHeight / 2
-                    Layout.preferredWidth:  implicitWidth / 2
-
-                }
-
-                RowLayout {
-                    Layout.alignment: Qt.AlignHCenter
-                    Button {
-                        icon.source: "assets/info.svg"
-                        icon.height: 20
-                        icon.width: 20
-                        onClicked: {
-                            MoviesManager.setMovieInfo(model.id, movieIndex)
-                            info.title = model.title
-                            info.poster = model.poster
-                        }
-
-                        ToolTip.visible: hovered
-                        ToolTip.text: qsTr("More info")
-                    }
-
-                    Button {
-                        id: favoriteBtn
-                        icon.source: "assets/add.svg"
-                        icon.height: 20
-                        icon.width: 20
-
-                        ToolTip.visible: hovered
-                        ToolTip.text: qsTr("Add to Favorites")
-
-                        onPressed: {
-                            MoviesManager.favorites.addMovie(model.title, model.year, model.poster)
-
-                        }
-                    }
-                }
-
-                Text {
-                    id: title
-                    text: qsTr("%1 (%2)").arg(model.title).arg(model.year);
-                    color: "white"
-                    font.pixelSize: 16
-                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    Layout.fillWidth: true
-                    Layout.margins: 10
-                    elide: Text.ElideRight
-                }
+            onInfoPressed: {
+                MoviesManager.setMovieInfo(model.id, movieIndex)
+                info.title = model.title
+                info.poster = model.poster
             }
         }
+    }
 
-        Connections {
-            target: MoviesManager
-            function onPlotRecieved(plot: string, actors: string, runtime: string, director: string) {
-                info.description = plot;
-                info.actors = actors
-                info.totalRunTime = runtime
-                info.director = director
-                info.open()
-            }
+    Connections {
+        target: MoviesManager
+        function onPlotRecieved(plot: string, actors: string, runtime: string, director: string) {
+            info.description = plot;
+            info.actors = actors
+            info.totalRunTime = runtime
+            info.director = director
+            info.open()
         }
     }
 }
