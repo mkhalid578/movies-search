@@ -14,6 +14,7 @@ ColumnLayout {
         Layout.margins: 10
         Layout.preferredWidth: 360
         Layout.preferredHeight: 45
+        Layout.alignment: Qt.AlignRight
         font.pixelSize: 30
         placeholderText: qsTr("Find movies...")
         focus: true
@@ -27,7 +28,7 @@ ColumnLayout {
 
         model: MoviesManager.moviesFilter
         width: 960
-        height: 640
+        height: 500
         cellWidth: 320
         cellHeight: 350
         clip: true
@@ -114,7 +115,6 @@ ColumnLayout {
 
                         onPressed: {
                             MoviesManager.favorites.addMovie(model.title, model.year, model.poster)
-                            favoriteBtn.enabled = false //dont want to add to favorites again
 
                         }
                     }
@@ -141,9 +141,6 @@ ColumnLayout {
                 info.totalRunTime = runtime
                 info.director = director
                 info.open()
-            }
-            function onMovieExistsAlready() {
-                console.log("Movie Exits already");
             }
         }
     }

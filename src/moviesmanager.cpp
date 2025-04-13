@@ -20,6 +20,9 @@ MoviesManager::MoviesManager(QObject *parent)
     connect(favorites, &MoviesListModel::titleExists,
             this, &MoviesManager::movieExistsAlready);
 
+    connect(favorites, &MoviesListModel::titleAdded,
+            this, &MoviesManager::movieAdded);
+
 }
 
 void MoviesManager::getMovies(QString title)

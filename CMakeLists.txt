@@ -39,6 +39,7 @@ qt_add_qml_module(appmovies
         RESOURCES assets/filter.svg
         RESOURCES assets/search.svg
         RESOURCES assets/back.svg
+        QML_FILES Notifications.qml
 )
 
 

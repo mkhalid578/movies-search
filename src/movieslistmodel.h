@@ -61,6 +61,7 @@ private:
     QList<MovieInfo> allMovies;
 
 signals:
+    void titleAdded(QString title);
     void titleExists();
 
 
