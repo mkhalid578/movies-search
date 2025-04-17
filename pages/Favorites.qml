@@ -68,7 +68,7 @@ ColumnLayout {
 
                 Image {
                     id: poster
-                    source: model.poster !== "N/A" ? model.poster : "assets/image.svg"
+                    source: model.poster !== "N/A" ? model.poster : "qrc:/assets/image.svg"
                     Layout.alignment: Qt.AlignHCenter
                     Layout.preferredHeight: implicitHeight / 2
                     Layout.preferredWidth:  implicitWidth / 2

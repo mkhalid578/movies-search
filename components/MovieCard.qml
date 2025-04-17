@@ -37,9 +37,20 @@ Rectangle {
         anchors.fill: parent
         spacing: 2
 
+        Text {
+            id: title
+            color: "black"
+            text: root.title
+            font.pixelSize: 16
+            Layout.alignment: Qt.AlignHCenter
+            Layout.preferredWidth: 280
+            elide: Text.ElideRight
+            Layout.margins: 8
+        }
+
         Image {
             id: poster
-            source: root.poster !== "N/A" ? root.poster : "assets/image.svg"
+            source: root.poster !== "N/A" ? root.poster : "qrc:/assets/image.svg"
             Layout.alignment: Qt.AlignHCenter
             Layout.preferredHeight: 200
             Layout.preferredWidth:  150
@@ -48,28 +59,23 @@ Rectangle {
 
         RowLayout {
             Layout.alignment: Qt.AlignHCenter
+            Layout.margins: 8
 
             CardButton {
-                cardIcon: "assets/info.svg"
+                cardIcon: "qrc:/assets/info.svg"
                 onClicked: infoPressed()
             }
 
             CardButton {
-                cardIcon: "assets/add.svg"
+                cardIcon: "qrc:/assets/add.svg"
                 onPressed: addPressed()
+            }
+            CardButton {
+                cardIcon: "qrc:/assets/heart.svg"
             }
 
         }
 
-        Text {
-            id: title
-            text: qsTr("%1 (%2)").arg(root.title).arg(root.year);
-            color: "black"
-            font.pixelSize: 16
-            Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-            Layout.fillWidth: true
-            Layout.margins: 10
-            elide: Text.ElideRight
-        }
+
     }
 }

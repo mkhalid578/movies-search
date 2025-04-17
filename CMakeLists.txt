@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.16)
 project(movies VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_AUTORCC ON)
 
 find_package(Qt6 6.5 REQUIRED COMPONENTS Quick Network)
 
@@ -20,12 +21,15 @@ qt_add_qml_module(appmovies
     URI films
     VERSION 1.0
     QML_FILES
-        MoviesPage.qml
-        InfoModal.qml
+        pages/Favorites.qml
+        pages/MoviesPage.qml
+        components/InfoModal.qml
+        components/Notifications.qml
+        components/CardButton.qml
+        components/MovieCard.qml
+        components/SearchBar.qml
         Main.qml
-        SearchPage.qml
-        Favorites.qml
-        Notifications.qml
+
     SOURCES
         src/movieslistmodel.h
         src/movieslistmodel.cpp
@@ -34,19 +38,7 @@ qt_add_qml_module(appmovies
         src/moviesfilter.h
         src/moviesfilter.cpp
     RESOURCES
-        assets/info.svg
-        assets/add.svg
-        assets/close.svg
-        assets/filter.svg
-        assets/search.svg
-        assets/back.svg
-        assets/movie.svg
-        assets/favorites.svg
-        assets/defaultImg.png
-        RESOURCES assets/image.svg
-        QML_FILES CardButton.qml
-        RESOURCES assets/settings.svg
-        QML_FILES MovieCard.qml
+        images.qrc
 )
 
 

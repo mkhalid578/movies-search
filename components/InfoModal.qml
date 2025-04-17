@@ -70,7 +70,7 @@ Popup {
             Button {
                 id: close
                 Layout.alignment: Qt.AlignRight
-                icon.source: "assets/close.svg"
+                icon.source: "qrc:/assets/close.svg"
                 icon.color: "black"
                 background: Rectangle {
                     radius: 12

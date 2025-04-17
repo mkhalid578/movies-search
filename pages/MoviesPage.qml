@@ -8,18 +8,14 @@ ColumnLayout {
 
     anchors.fill: parent
 
-    TextField {
-        id: find
-
+    SearchBar {
+        id: search
         Layout.margins: 10
         Layout.preferredWidth: 360
         Layout.preferredHeight: 45
         Layout.alignment: Qt.AlignCenter
-        font.pixelSize: 30
-        placeholderText: qsTr("Find movies...")
-        focus: true
 
-        Keys.onReturnPressed: {
+        onSearchEntered: {
             MoviesManager.getMovies(text);
         }
     }

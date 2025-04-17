@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>assets/add.svg</file>
+        <file>assets/back.svg</file>
+        <file>assets/close.svg</file>
+        <file>assets/defaultImg.png</file>
+        <file>assets/favorites.svg</file>
+        <file>assets/filter.svg</file>
+        <file>assets/heart.svg</file>
+        <file>assets/image.svg</file>
+        <file>assets/info.svg</file>
+        <file>assets/movie.svg</file>
+        <file>assets/search.svg</file>
+        <file>assets/settings.svg</file>
+    </qresource>
+</RCC>
