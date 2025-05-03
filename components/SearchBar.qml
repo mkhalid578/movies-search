@@ -10,9 +10,10 @@ TextField {
     signal searchEntered()
 
 
-    font.pixelSize: 30
+    font.pixelSize: 16
     placeholderText: qsTr("Find movies...")
-    focus: true
+
+    padding: 32
 
     function updateFilteredHistory(input) {
         if (input === "") {
@@ -22,6 +23,41 @@ TextField {
                 return item.toLowerCase().indexOf(input.toLowerCase()) !== -1
             })
         }
+    }
+
+    background: Rectangle {
+        // color: "white"
+        radius: 12
+
+
+        color: "white"
+        border.width: 1
+        border.color: find.focus ? "#0078d7" : "#ccc"
+
+        Behavior on border.color {
+            ColorAnimation {
+                duration: 150
+                easing.type: Easing.InOutQuad
+            }
+        }
+
+    }
+
+    // Embedded search icon
+    Image {
+        id: searchIcon
+        anchors.verticalCenter: parent.verticalCenter
+        anchors.left: parent.left
+        anchors.leftMargin: 8
+        width: 24
+        height: 24
+        source: "qrc:/assets/search.svg" // or use SVG or local path
+
+        x: find.focus ? 8 : -24
+        opacity: find.focus ? 0.6 : 0.0
+
+        Behavior on x { NumberAnimation { duration: 200; easing.type: Easing.OutCubic } }
+        Behavior on opacity { NumberAnimation { duration: 150 } }
     }
 
     Keys.onReturnPressed: {
@@ -64,10 +100,8 @@ TextField {
         closePolicy: Popup.CloseOnEscape | Popup.CloseOnPressOutside
         visible: false
 
-        // y: find.y + find.height
-
         width: 360
-        height: 400
+        height: Math.min(historyList.contentHeight + 20, 300)
 
         background: Rectangle {
             color: "#ffffff"
@@ -83,14 +117,14 @@ TextField {
 
         Behavior on y {
             NumberAnimation {
-                duration: 180
+                duration: 200
                 easing.type: Easing.OutCubic
             }
         }
 
         Behavior on opacity {
             NumberAnimation {
-                duration: 150
+                duration: 180
                 easing.type: Easing.InOutQuad
             }
         }
@@ -103,10 +137,14 @@ TextField {
             model: find.filteredHistory
 
             delegate: ItemDelegate {
+                id: historyItem
                 text: modelData
+                icon.source: "qrc:/assets/close.svg"
+
 
                 width: parent.width
                 background: Rectangle {
+                    radius: 4
                     color: hovered ? "#f0f0f0" : "#ffffff"
                 }
                 onClicked: {

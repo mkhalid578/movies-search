@@ -1,12 +1,10 @@
-import QtQuick
+    import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls.Basic
 import films
 
 
 ColumnLayout {
-
-    anchors.fill: parent
 
     SearchBar {
         id: search
@@ -22,7 +20,7 @@ ColumnLayout {
 
     InfoModal {
         id: info
-        anchors.centerIn: parent
+        Layout.alignment: Qt.AlignCenter
     }
 
 

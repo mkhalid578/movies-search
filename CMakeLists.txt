@@ -28,6 +28,7 @@ qt_add_qml_module(appmovies
         components/CardButton.qml
         components/MovieCard.qml
         components/SearchBar.qml
+        components/MenuButton.qml
         Main.qml
 
     SOURCES

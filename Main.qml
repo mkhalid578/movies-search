@@ -11,8 +11,6 @@ Window {
     visible: true
     title: qsTr("Qt Movies")
 
-    property Component moviesPage: MoviesPage {}
-    property Component favoritesPage: Favorites {}
 
     Notifications {
         id: notifications
@@ -20,44 +18,65 @@ Window {
 
     ColumnLayout {
 
+        anchors.fill: parent
+
         TabBar {
             id: tabBar
-            Layout.fillWidth: true
-            Layout.preferredHeight: 50
-            TabButton {
-                id: movieBtn
-                icon.source: "qrc:/assets/movie.svg"
-                icon.color: tabBar.currentIndex === 0 ? "black" : "white"
+            Layout.alignment: Qt.AlignHCenter
+            Layout.margins: 4
+            spacing: 10
+            MenuButton {
+                width: 150
                 text: qsTr("Movies")
+                icon.source: "qrc:/assets/movie.svg"
             }
-            TabButton {
+            MenuButton {
+                width: 150
                 text: qsTr("Favorites")
                 icon.source: "qrc:/assets/favorites.svg"
-                icon.color: tabBar.currentIndex === 1 ? "black" : "white"
+                // icon.color: tabBar.currentIndex === 1 ? "black" : "white"
             }
-            TabButton {
+            MenuButton {
+                width: 150
                 text: qsTr("Settings")
                 icon.source: "qrc:/assets/settings.svg"
-                icon.color: tabBar.currentIndex == 2 ? "black" : "white"
+                // icon.color: tabBar.currentIndex == 2 ? "black" : "white"
             }
         }
 
-        Loader {
-            id: loader
-            sourceComponent: {
-                if (tabBar.currentIndex === 0) {
+        StackLayout {
+            id: stack
 
-                    return moviesPage
-                } else if (tabBar.currentIndex === 1) {
-                    return favoritesPage
-                } else {
-                    return;
-                }
+            currentIndex: tabBar.currentIndex
+
+
+            MoviesPage {
+                id: moviesPage
             }
-
-            Layout.fillWidth: true
+            Favorites {
+                id: favoritesPage
+            }
         }
     }
+
+
+
+
+    // Loader {
+    //     id: loader
+    //     sourceComponent: {
+    //         if (tabBar.currentIndex === 0) {
+
+    //             return moviesPage
+    //         } else if (tabBar.currentIndex === 1) {
+    //             return favoritesPage
+    //         } else {
+    //             return;
+    //         }
+    //     }
+
+    //     Layout.fillWidth: true
+    // }
 }
 
 

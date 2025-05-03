@@ -5,7 +5,7 @@ import films
 
 ColumnLayout {
 
-    anchors.fill: parent
+    // anchors.fill: parent
 
     GridView {
         id: grid
@@ -16,11 +16,6 @@ ColumnLayout {
         cellWidth: 320
         cellHeight: 350
         clip: true
-
-        InfoModal {
-            id: info
-            anchors.centerIn: parent
-        }
 
 
         add: Transition {
@@ -41,8 +36,8 @@ ColumnLayout {
             property int movieIndex : index
             property bool flipped: false
 
-            width: grid.cellWidth - 8
-            height: grid.cellHeight - 10
+            width: grid.cellWidth - 20
+            height: grid.cellHeight - 20
             border.color: "#dcdcdc"
             radius: 4
             border.width: 2
