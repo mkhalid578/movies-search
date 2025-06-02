@@ -48,6 +48,7 @@ signals:
     void plotRecieved(QString plot, QString actors, QString runtime, QString director);
     void movieExistsAlready();
     void movieAdded(QString title);
+    void saveMovies();
 
 private:
 

@@ -23,6 +23,13 @@ MoviesManager::MoviesManager(QObject *parent)
     connect(favorites, &MoviesListModel::titleAdded,
             this, &MoviesManager::movieAdded);
 
+    connect(this, &MoviesManager::saveMovies,
+            this, [this](){
+        favorites->saveMovies();
+    });
+
+    favorites->loadMovies();
+
 }
 
 void MoviesManager::getMovies(QString title)

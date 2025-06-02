@@ -1,3 +1,8 @@
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QFile>
+
 #include "movieslistmodel.h"
 
 MoviesListModel::MoviesListModel(QObject* parent)
@@ -104,6 +109,82 @@ void MoviesListModel::setMovies(const QList<MovieInfo> &movieList)
     allMovies.clear();
     allMovies = movieList;
     endResetModel();
+}
+
+void MoviesListModel::loadMovies()
+{
+    QList<MovieInfo> moviesFromJson;
+
+    QFile file("output.json");
+    if (!file.open(QIODevice::ReadOnly)) {
+        qWarning("Couldn't open JSON file.");
+        return;
+    }
+
+    QByteArray jsonData = file.readAll();
+    file.close();
+
+    QJsonParseError parseError;
+    QJsonDocument doc = QJsonDocument::fromJson(jsonData, &parseError);
+    if (parseError.error != QJsonParseError::NoError) {
+        qWarning() << "JSON parse error:" << parseError.errorString();
+        return;
+    }
+
+    if (!doc.isArray()) {
+        qWarning("JSON is not an object");
+        return;
+    }
+
+    QJsonArray moviesList = doc.array();
+
+    for (auto movieListItem: moviesList) {
+        QJsonObject obj = movieListItem.toObject();
+        MovieInfo movie;
+        movie.title = obj["title"].toString();
+        movie.description = obj["description"].toString();
+        movie.poster = obj["poster"].toString();
+
+        moviesFromJson.append(movie);
+    }
+
+
+    setMovies(moviesFromJson);
+
+
+}
+
+void MoviesListModel::saveMovies()
+{
+    QJsonDocument movieJsonDoc;
+    QJsonArray moviesJsonArray;
+
+    foreach (auto movie, allMovies) {
+        QJsonObject movieObj;
+        movieObj["title"] = movie.title;
+        movieObj["description"] = movie.description;
+        movieObj["year"] = movie.year;
+        movieObj["poster"] = movie.poster;
+        movieObj["type"] = movie.type;
+        movieObj["id"] = movie.id;
+
+        moviesJsonArray.append(movieObj);
+    }
+
+    QJsonDocument doc(moviesJsonArray);
+
+    QByteArray jsonData = doc.toJson(QJsonDocument::Indented);
+
+    QFile file("output.json");
+
+    if (file.open(QIODevice::WriteOnly)) {
+        file.write(jsonData);
+        file.close();
+
+    }
+
+
+
 }
 
 void MoviesListModel::addMovie(const QString& title, const QString& year, const QString& poster) {

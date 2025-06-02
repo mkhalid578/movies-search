@@ -53,6 +53,10 @@ public:
 
     QList<MovieInfo> getMovies();
 
+    void loadMovies();
+
+    void saveMovies();
+
 
 
 private:

@@ -4,6 +4,7 @@
 #include <QNetworkReply>
 #include <QNetworkRequest>
 #include <QJsonDocument>
+#include <QList>
 
 #include <QDebug>
 
@@ -14,6 +15,13 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     MoviesManager::instance();
+
+
+    QObject::connect(QCoreApplication::instance(), &QCoreApplication::aboutToQuit, []() {
+        emit MoviesManager::instance().saveMovies();
+    });
+
+
 
     QQmlApplicationEngine engine;
     QObject::connect(

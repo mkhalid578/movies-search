@@ -14,6 +14,8 @@ Window {
 
     Notifications {
         id: notifications
+        anchors.bottom: parent.bottom
+        anchors.margins: 10
     }
 
     ColumnLayout {
